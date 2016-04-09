@@ -1,13 +1,13 @@
 var happn = require('happn')
 var service = happn.service;
 var happn_client = happn.client;
-var test_file = __dirname + '/data/' + Date.now(); + 'optimisation-1.db';
+var test_file = __dirname + '/data/test-' + Date.now() + '.db';
 
 var happn = require('happn')
 var happnInstance; //this will be your server instance
 
-var DUMP_INTERVAL = 5000; //1000 * 60 * 10;//every 10 minutes
-var STATS_INTERVAL = 3000; //1000 * 60 * 5;//every 10 minutes
+var DUMP_INTERVAL = 1000 * 60 * 10;//every 10 minutes
+var STATS_INTERVAL = 1000 * 60 * 5;//every 10 minutes
 
 var heapdump = require('heapdump');
 var fs = require('fs');

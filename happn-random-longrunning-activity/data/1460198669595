@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"pepperridge_NJAXhpW1W"},"created":1460198669791,"modified":1460198669791}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"yBR7vVRSZ7SQOWx6bOndf0rEP8zVlW/awwkvDiISU30=\",\"publicKey\":\"AongPXQgP1xBK+HsAk788LeomH0mL1k/hNuol6GEWMss\"}"},"created":1460198669834,"modified":1460198669834}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460198669839,"modified":1460198669839}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$b8610b3a41ed36728d10550d7ac1cd7cc3fce44594898023cae5180a82f8dd9c212e7a2db1d037b92dbd09b51ec51faeab9c363958ca6b85654187494f85c8ae$36f21fded0582b1778d2e8543ae53bf99036fc4bc61c719f4349f189064052afd73e63386f802de7911ace2e201ba098c249ed4c68babad0fe5bf16072be0cf3"},"created":1460198669874,"modified":1460198669874}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460198669876,"modified":1460198669876}

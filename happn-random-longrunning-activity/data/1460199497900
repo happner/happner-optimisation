@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"fastchin_4JcwkCbyb"},"created":1460199498021,"modified":1460199498021}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"h4BnhCYfT3NFGPMzv8o0L6KwzLIpsweJPXYCM/vNtXU=\",\"publicKey\":\"A/8jeDxJronhbAtyCM0BGAIBV3TY37fcGG5FieuRpCcc\"}"},"created":1460199498058,"modified":1460199498058}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460199498061,"modified":1460199498061}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$366a4a9cee3ec6199f7d2c1b63d9577faffb31a47d91241460e7a3b5182e6ccb251f8519874060780374f53e92e403e19927d4096a087830b59d8bcda158504c$d14167aa181dc5fb2008cf44aeed4e9784cb7cc17638cefe8781901cc972bb7d57ee4d43f6eca12f893f783b17b1f44be8e51e58dcfa005cd89f35b91e5dc6e0"},"created":1460199498095,"modified":1460199498095}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460199498097,"modified":1460199498097}

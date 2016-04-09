@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"mazetiger_VJkIApW1-"},"created":1460199214350,"modified":1460199214350}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"L6pJf4GbPcFgmCLrpVsbe2f0plAo0Z1cai+03j/Yhq8=\",\"publicKey\":\"Aw0EKObPBrV0976Ifflks24ifpnNWvkpSEct4Jon1V2R\"}"},"created":1460199214394,"modified":1460199214394}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460199214397,"modified":1460199214397}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$32b1abd7115c5b3855c07f55a85697b60a3fe67b10da4386363169b52250fff39fecc8cae0026e8de4afb042b5a10becaa85006db5129be21a7661747336f698$c99d9f6c165d67bff1a5adb3149e7ed190ece497f7ec24841c5497e55e905522651e528267911f0ad7f3679f6b360eecdcf34fac2e9ee7543cbaa9d8e8b05b46"},"created":1460199214435,"modified":1460199214435}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460199214436,"modified":1460199214436}

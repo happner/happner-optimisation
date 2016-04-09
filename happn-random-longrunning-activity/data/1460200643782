@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"brassbelly_NyEkV0WJW"},"created":1460200643976,"modified":1460200643976}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"dESzZhaLCFZrvx5YUqdqU3lmL6XgAxe569wHJyaIxRY=\",\"publicKey\":\"A/SewZ0P3GdXmvBuUMU9o067cddxNUQh4y2F89eV/lWl\"}"},"created":1460200644018,"modified":1460200644018}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460200644021,"modified":1460200644021}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$d2231ec2f5f43156742b360701f3ee0f50993ce5701e681d0780836c6839de06821e0b4f35e9d7fad12198116f5370b1726114eb9653c0c6181464cfba8c5434$a082bb2a8767168ab130d33503ea0ef4659a1f2119aa46398fe8a722181b327e577d2be05c9fffb54c3f2e92b25db5bdcbbf27af280bed390fb7e9041c6b8fa5"},"created":1460200644055,"modified":1460200644055}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460200644057,"modified":1460200644057}

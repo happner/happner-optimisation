@@ -16,54 +16,116 @@ var clientConfig = {
 	}
 }
 
-var ACTIVITY_LOG_INTERVAL = 5000;
+var ACTIVITY_LOG_INTERVAL = 30000;
+var statsService;
+var statsClient;
 
-// spawn remote mesh in another process
-remote = spawn('node', [__dirname + '/happn_instance']);
+var testFile = __dirname + '/stats-' + Date.now();
 
-var random;
+var config = {
+	secure:true,
+	port:55006,
+    services: {
+      data: {
+        path: './services/data_embedded/service.js',
+        config:{
+           filename:testFile
+        }
+      }
+    }
+}
 
-remote.stdout.on('data', function(data) {
+var clientConfig = {
+	config:{
+		username:'_ADMIN',
+		password:'happn',
+		secure:true,
+		port:55006
+	}
+}
 
-  console.log(data.toString());
+var logStats = function(type, data, cb){
+	statsClient.set('/STATS/' + type.toUpperCase() + '/' + Date.now(), data, cb);
+}
 
-  if (data.toString().match(/READY/)){
-  	happn_client.create(clientConfig, function(e, instance){
-  		if (e){
-  			console.log('error connecting to remote happn instance: ', e);
+service.create(config,
+	function (e, instance) {
+
+		if (e)
+		    return console.log("ERROR:" + e.toString());
+
+		statsService  = instance;
+
+		happn_client.create(clientConfig, function(e, clientInstance){
+
+		if (e){
+  			console.log('error connecting to local happn instance: ', e);
   			return endProcess();
   		}
-  		clientInstance = instance;
-  		var RandomActivityGenerator = require("happn-random-activity-generator");
-  		random = new RandomActivityGenerator(clientInstance);
 
-  		random.generateActivityStart("test", function(e){
+		statsClient = clientInstance;
 
-  			if (e){
-	  			console.log('error starting random activity: ', e);
-	  			return endProcess();
-	  		}
+		// spawn remote mesh in another process
+		remote = spawn('node', [__dirname + '/happn_instance']);
 
-	  		setInterval(function(){
-	  			var aggregatedLog = random.__operationLogAggregated["test"];
-	  			console.log('RANDOM ACTIVITIES - AGGREGATED:::', aggregatedLog);
-	  		}, ACTIVITY_LOG_INTERVAL);
+		var random;
 
-	  		console.log('READY - TEST FRAMEWORK UP:::');
-  		}, "daemon")
+		remote.stdout.on('data', function(data) {
 
-  	})
-  }
+		  console.log(data.toString());
 
-  if (data.toString().indexOf(/DUMP/) >= 0){
-  	var dumpFile = data.toString().split(':::')[1];
-  	console.log('HAVE DUMP FILE:::', dumpFile);
-  }
+		  if (data.toString().match(/READY/)){
+		  	happn_client.create(clientConfig, function(e, instance){
 
-  if (data.toString().indexOf(/STATS/) >= 0){
-  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
-  	console.log('HAVE STATS OBJ:::', statsObj);
-  }
+		  		if (e){
+		  			console.log('error connecting to remote happn instance: ', e);
+		  			return endProcess();
+		  		}
+
+		  		clientInstance = instance;
+		  		var RandomActivityGenerator = require("happn-random-activity-generator");
+		  		random = new RandomActivityGenerator(clientInstance);
+
+		  		random.generateActivityStart("test", function(e){
+
+		  			if (e){
+			  			console.log('error starting random activity: ', e);
+			  			return endProcess();
+			  		}
+
+			  		setInterval(function(){
+			  			var aggregatedLog = random.__operationLogAggregated["test"];
+			  			console.log('RANDOM ACTIVITIES - AGGREGATED:::', aggregatedLog);
+
+						logStats('activity', aggregatedLog, function(e, result){
+			  				if (e) return console.log('error setting stats: ' );
+			  			});
+
+			  		}, ACTIVITY_LOG_INTERVAL);
+
+			  		console.log('READY - TEST FRAMEWORK UP:::');
+		  		}, "daemon")
+
+		  	})
+		  }
+
+		  if (data.toString().indexOf(/DUMP/) >= 0){
+		  	var dumpFile = data.toString().split(':::')[1];
+		  	logStats('dump', dumpFile, function(e, result){
+			  	if (e) return console.log('error setting stats: ' + e );
+			});
+		  }
+
+		  if (data.toString().indexOf(/STATS/) >= 0){
+		  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
+		  	logStats('memory', statsObj, function(e, result){
+			  	if (e) return console.log('error setting stats: ' + e );
+			});
+		  }
+
+		});
+
+	});
 
 });
 
