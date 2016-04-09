@@ -1,0 +1,5 @@
+{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"runezebra_NJLbHAby-"},"created":1460200933387,"modified":1460200933387}
+{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"nfp+kNYgezUnylISovAdNxUMHa0TzOLPdUPVe97sr0Q=\",\"publicKey\":\"A2nCQk7Ij9mEhWGxZbr/+7SM0D8uOZLc+pBITTnAYHpT\"}"},"created":1460200933429,"modified":1460200933429}
+{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460200933432,"modified":1460200933432}
+{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$aa98122d4af7c0de96ebfa85ce4eeb7caaf2314f9487fbfa3d8506733cb3a43c5e49df1e9ad2d95e9db14326c6630b3ed7679b9e77ff061eaf4e2b3047d7cd67$8947955bc98d455de59ab8de1bb942f1f538db400fa53d585cee95fbe7e8423ab56698642a1a0786e17bb2f11b557cb06f481efd118b4d04a2309c85ae383ac4"},"created":1460200933466,"modified":1460200933466}
+{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460200933468,"modified":1460200933468}

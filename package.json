@@ -1,20 +1,22 @@
 {
-  "name": "happner-tests",
-  "description": "test templates for happner",
+  "name": "happner-optimisation",
+  "description": "optimisation tests for happn/happner",
   "version": "0.0.1",
-  "scripts":{
-    "test":"node test/happner_test",
+  "scripts": {
+    "test": "node test/",
     "test-cover": "istanbul cover _mocha -- silence.js test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/happner/happner-tests.git"
+    "url": "git+https://github.com/happner/happner-optimisation.git"
   },
   "dependencies": {
     "async": "^1.5.2",
+    "benchmarket": "0.0.4",
     "fs-extra": "^0.26.5",
+    "happn": "^2.5.8",
     "happner": "^1.6.3",
-    "happn": "^2.5.8"
+    "heapdump": "^0.3.7"
   },
   "devDependencies": {
     "chai": "^3.2.0",
@@ -24,15 +26,5 @@
     "istanbul": "^0.4.1",
     "mocha": "*",
     "shortid": "^2.2.4"
-  },
-  "readmeFilename": "README.md",
-  "readme": "ERROR: No README data found!",
-  "gitHead": "73ab37925a9ef3ba8a9323b85152628dfb80993f",
-  "bugs": {
-    "url": "https://github.com/happner/happner-tests/issues"
-  },
-  "homepage": "https://github.com/happner/happner-tests#readme",
-  "_id": "happner-tests@0.0.1",
-  "_shasum": "06be6f6b05689845cbb32b1b37f3459be977889e",
-  "_from": "happner-tests@*"
+  }
 }

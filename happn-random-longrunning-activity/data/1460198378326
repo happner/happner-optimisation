@@ -1,0 +1,5 @@
+{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"lavagull_41obspbyW"},"created":1460198378529,"modified":1460198378529}
+{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"cbNX71/Qcq8iHQfGz0u/JB7mMs0Ev7p7m0Sh8BeLI2o=\",\"publicKey\":\"A+4sskbR2lbFV0ZOrdYz7VGDbjMLTMhaPipq+5bQWOyt\"}"},"created":1460198378575,"modified":1460198378575}
+{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460198378578,"modified":1460198378578}
+{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$1773dd78c7074fd519a80bd35389c2cac494e036b057e83eac12376417bd7074dc61b4ee0939f21c5ee5f1a4f0c078e3c4469412e6239e70a28f4cdbf28a8ce9$117191d697530cfeb31ec16e34a567504a20f6cf141d6e8bd9d91d1ee39d1801c311152e7d4906301a007a12a242bcdd9bd93dd51a45f16321e35778be69d93a"},"created":1460198378616,"modified":1460198378616}
+{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460198378618,"modified":1460198378618}
