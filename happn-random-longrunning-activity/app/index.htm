@@ -1,0 +1,55 @@
+<html style="margin:5px">
+  <head>
+
+  	<link rel="stylesheet" href="lib/components/font-awesome/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="lib/components/bootstrap/dist/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="lib/components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+ 	<link rel="stylesheet" href="css/happn-job.css">
+    <script src="lib/components/angular/angular.js"></script>
+    <script src="lib/components/angular-uuid4/angular-uuid4.min.js"></script>
+
+    <script src="lib/components/angular-animate/angular-animate.min.js"></script>
+    <script src="lib/components/angular-touch/angular-touch.min.js"></script>
+
+    <script src="lib/components/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="lib/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<script type="text/javascript" src="/browser_client"></script>
+	<script src="js/services/happn-angular.js"></script>
+
+	<script src="lib/components/jquery/dist/jquery.min.js"></script>
+	<script type='text/javascript' src='lib/components/jquery-ui/jquery-ui.min.js'></script>
+	<script type='text/javascript' src='lib/jquery.ui.touch-punch.min.js'></script>
+
+	<script src="js/app.js"></script>
+	<script src="js/controllers/system-controllers.js"></script>
+    <script src="js/services/system-services.js"></script>
+    <script src="js/directives/draganddrop.js"></script>
+    <script src="js/directives/client-scripts.js"></script>
+    <script src="lib/base64.js"></script>
+
+  </head>
+  <body style="margin:5px">
+	<div ng-controller="DashboardController" class="row">
+		<div ng-include src="'../templates/notify.html'"></div>
+		<div ng-repeat="event in data.events" style="height:40px">{{JSON.stringify(event)}}</div>
+	</div>
+
+	<div id="modalContent" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header" style="height:60px">
+	        <span class="modal-title label-dark" id="modalContentHeader" style="font-size:16px"></span>
+	        <button type="button" class="btn btn-default" onclick='cancelModalContent()' style="float:right;margin-left:5px;">Cancel</button>
+	        <button id="btnSave" type="button" class="btn btn-success" onclick='saveModalContent()' style="float:right;">Save</button>
+	        <br>
+	      </div>
+	      <div class="modal-body">
+	      	<div style="display:{{data.message.display}};position:absolute;bottom:5px;right:5px" class="alert {{data.message.type}}">{{data.message.message}}</div>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+  </body>
+</html>

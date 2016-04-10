@@ -1,0 +1,24 @@
+<div class="modal-header">
+            <h3>New blueprint</h3>
+</div>
+<div class="modal-body">
+ <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="blueprintName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="blueprintName" placeholder="Name" ng-model="blueprint.name"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="blueprintDescription" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea id="blueprintDescription" class="form-control" rows="3" placeholder="Description" ng-model="blueprint.description"></textarea>
+    </div>
+  </div>
+ </form>
+</div>
+ <div class="modal-footer">
+ 	 <div ng-include src="'../templates/notify_modular.html'"></div>
+   <i class="icon-button-large glyphicon glyphicon-ok" ng-click="ok()"></i>
+ 	 <i class="icon-button-large glyphicon glyphicon-remove" ng-click="cancel()"></i>
+ </div>

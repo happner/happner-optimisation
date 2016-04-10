@@ -1,0 +1,10 @@
+<div class="editor-container" ng-controller="directive_edit" ng-init='init({"parentPropertyName":"blueprint","parentType":"Blueprint","directiveTypeName":"Generator", "obj":"generator"})'>
+  <div ng-model="editorCode" class="js-editor" ui-ace="{
+  useWrapMode : true,
+  showGutter: true,
+  theme:'eclipse',
+  mode: 'javascript',
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}"></div>
+</div>

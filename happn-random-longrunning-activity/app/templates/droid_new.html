@@ -1,0 +1,61 @@
+<div class="modal-header">
+            <h3>New droid</h3>
+</div>
+<div class="modal-body">
+ <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="droidName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="droidName" placeholder="Name" ng-model="droid.name"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="droidDescription" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea id="droidDescription" class="form-control" rows="3" placeholder="Description" ng-model="droid.description"></textarea>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="droidProject" class="col-sm-2 control-label">Project</label>
+    <div class="col-sm-10">
+     <select
+       ng-model="droid.project"
+       class="form-control"
+       id="droidProject"
+       required=true
+       ng-change="projectSelected()"
+       ng-options="proj._meta.path as proj.name for proj in utils.toArray(data.cache.Projects)">
+     </select>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="droidProject" class="col-sm-2 control-label">Controls</label>
+    <div class="col-sm-10">
+     <select
+       ng-model="droid.control"
+       class="form-control"
+       id="droidDirective"
+       required=true
+       ng-options="control._meta.path as control.name for control in controls">
+     </select>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="controlProject" class="col-sm-2 control-label">Directive</label>
+    <div class="col-sm-10">
+     <select
+       ng-model="droid.directive"
+       class="form-control"
+       id="droidControl"
+       required=true
+       ng-options="op._meta.path as op.name for op in directives">
+     </select>
+    </div>
+  </div>
+ </form>
+</div>
+ <div class="modal-footer">
+   <div style="display:{{message.display}}" class="alert {{message.type}}">{{message.message}}</div>
+   <i class="icon-button-large glyphicon glyphicon-ok" ng-click="ok()"></i>
+   <i class="icon-button-large glyphicon glyphicon-remove" ng-click="cancel()"></i>
+ </div>

@@ -1,0 +1,36 @@
+<div class="modal-header">
+            <h3>New assembly line</h3>
+</div>
+<div class="modal-body">
+ <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="flowName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="flowName" placeholder="Name" ng-model="flow.name"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="flowDescription" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea id="flowDescription" class="form-control" rows="3" placeholder="Description" ng-model="flow.description"></textarea>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="flowProject" class="col-sm-2 control-label">Project</label>
+    <div class="col-sm-10">
+     <select
+       ng-model="flow.project"
+       class="form-control"
+       id="flowProject"
+       required=true
+       ng-options="proj._meta.path as proj.name for proj in utils.toArray(data.cache.Projects)">
+     </select>
+    </div>
+  </div>
+ </form>
+</div>
+ <div class="modal-footer">
+   <div style="display:{{message.display}}" class="alert {{message.type}}">{{message.message}}</div>
+   <i class="icon-button-large glyphicon glyphicon-ok" ng-click="ok()"></i>
+   <i class="icon-button-large glyphicon glyphicon-remove" ng-click="cancel()"></i>
+ </div>

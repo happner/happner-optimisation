@@ -1,0 +1,22 @@
+<div ng-controller="project_edit" class="panel panel-default" style="width:100%;height:100%;">
+  <div class="panel-heading">Edit project {{project.name}}</div>
+  <div class="panel-body">
+     <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="projectName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="projectName" placeholder="Name" ng-model="project.name"></input>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="projectDescription" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+          <textarea id="projectDescription" class="form-control" rows="3" placeholder="Description" ng-model="project.description"></textarea>
+        </div>
+      </div>
+       <div class="form-group">
+        <label class="col-sm-6 control-label">Blueprint:  {{project.blueprint}}</label>
+      </div>
+     </form>
+  </div>
+</div>

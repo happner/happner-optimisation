@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"fairboot_NyAH6XfJ-"},"created":1460223533725,"modified":1460223533725}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"o1J+bnfeS7p4R0GTVeBpkgrzOiH7fJJK3/FO7wwLfwc=\",\"publicKey\":\"A/K/AyMQYkDeeTH6eazlVc6cKTeWz7fqS4hmmxy41NHV\"}"},"created":1460223533774,"modified":1460223533774}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460223533782,"modified":1460223533782}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$5da07196896faa3e1977887005f9372f00e0e142f9cbdc36edb11d1824b0d31c740124072c28d2bf4814a0504f04620eb0430a456c76ee16c25946b2df7ebf2f$455f80debad703dd48670d1cde44c4b5fe4259a20237d8129305a4923ecc11073d07a45b3f40fad93949ebf3be9603900d733b01dc9c707feadbc17375fc58df"},"created":1460223533823,"modified":1460223533823}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460223533827,"modified":1460223533827}

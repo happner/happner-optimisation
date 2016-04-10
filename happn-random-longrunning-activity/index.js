@@ -4,27 +4,61 @@ var spawn = require('child_process').spawn
   , happn = require('happn')
   , service = happn.service
   , happn_client = happn.client
+  , serveStatic = require('serve-static')
+  , fs = require('fs')
   ;
 
 var clientInstance;
 
-var clientConfig = {
+var PORT = 55000;
+
+if (process.env.PORT)
+	PORT = process.env.PORT;
+
+var REMOTE_PORT = PORT + 1;
+
+if (process.env.REMOTE_PORT)
+	REMOTE_PORT = process.env.REMOTE_PORT;
+
+var STATS_IP = "127.0.0.1";
+
+if (process.env.STATS_IP)
+	STATS_IP = process.env.STATS_IP;
+
+var REMOTE_IP = "127.0.0.1";
+
+if (process.env.REMOTE_IP)
+	REMOTE_IP = process.env.REMOTE_IP;
+
+var ADMIN_PASSWORD = 'happn';
+
+if (process.env.ADMIN_PASSWORD)
+	ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+var remoteClientConfig = {
 	config:{
+	  port:REMOTE_PORT,
 	  secure:true,
 	  username:'_ADMIN',
-	  password:'happn'
+	  password:ADMIN_PASSWORD
 	}
 }
 
-var ACTIVITY_LOG_INTERVAL = 30000;
+var ACTIVITY_LOG_INTERVAL = 1000 * 60 * 2;
 var statsService;
 var statsClient;
 
-var testFile = __dirname + '/stats-' + Date.now();
+var generateName = require('sillyname');
+
+var test_id = Date.now() + '_' + generateName().split(' ')[0];
+var testFile = __dirname + '/stats-' + test_id + '.db';
+
+var random;
 
 var config = {
+	name:test_id,
 	secure:true,
-	port:55006,
+	port:PORT,
     services: {
       data: {
         path: './services/data_embedded/service.js',
@@ -32,102 +66,47 @@ var config = {
            filename:testFile
         }
       }
-    }
+    },
+    middleware:{
+        security:{
+          exclusions:[
+            '/index.htm',
+            '/css/*',
+            '/font/*',
+            '/fonts/*',
+            '/img/*',
+            '/js/*',
+            '/lib/*',
+            '/templates/*',
+            '/settings.json',
+            '/favicon.ico'
+          ]
+        }
+   	}
 }
 
 var clientConfig = {
 	config:{
 		username:'_ADMIN',
-		password:'happn',
+		password:ADMIN_PASSWORD,
 		secure:true,
-		port:55006
+		port:PORT
 	}
 }
+
+var STATS_USERNAME = 'STATS_USER';
+
+if (process.env.STATS_USERNAME)
+	STATS_USERNAME = process.env.STATS_USERNAME;
+
+var STATS_PASSWORD = 'STATS1234';
+
+if (process.env.STATS_PASSWORD)
+	STATS_PASSWORD = process.env.STATS_PASSWORD;
 
 var logStats = function(type, data, cb){
 	statsClient.set('/STATS/' + type.toUpperCase() + '/' + Date.now(), data, cb);
 }
-
-service.create(config,
-	function (e, instance) {
-
-		if (e)
-		    return console.log("ERROR:" + e.toString());
-
-		statsService  = instance;
-
-		happn_client.create(clientConfig, function(e, clientInstance){
-
-		if (e){
-  			console.log('error connecting to local happn instance: ', e);
-  			return endProcess();
-  		}
-
-		statsClient = clientInstance;
-
-		// spawn remote mesh in another process
-		remote = spawn('node', [__dirname + '/happn_instance']);
-
-		var random;
-
-		remote.stdout.on('data', function(data) {
-
-		  console.log(data.toString());
-
-		  if (data.toString().match(/READY/)){
-		  	happn_client.create(clientConfig, function(e, instance){
-
-		  		if (e){
-		  			console.log('error connecting to remote happn instance: ', e);
-		  			return endProcess();
-		  		}
-
-		  		clientInstance = instance;
-		  		var RandomActivityGenerator = require("happn-random-activity-generator");
-		  		random = new RandomActivityGenerator(clientInstance);
-
-		  		random.generateActivityStart("test", function(e){
-
-		  			if (e){
-			  			console.log('error starting random activity: ', e);
-			  			return endProcess();
-			  		}
-
-			  		setInterval(function(){
-			  			var aggregatedLog = random.__operationLogAggregated["test"];
-			  			console.log('RANDOM ACTIVITIES - AGGREGATED:::', aggregatedLog);
-
-						logStats('activity', aggregatedLog, function(e, result){
-			  				if (e) return console.log('error setting stats: ' );
-			  			});
-
-			  		}, ACTIVITY_LOG_INTERVAL);
-
-			  		console.log('READY - TEST FRAMEWORK UP:::');
-		  		}, "daemon")
-
-		  	})
-		  }
-
-		  if (data.toString().indexOf(/DUMP/) >= 0){
-		  	var dumpFile = data.toString().split(':::')[1];
-		  	logStats('dump', dumpFile, function(e, result){
-			  	if (e) return console.log('error setting stats: ' + e );
-			});
-		  }
-
-		  if (data.toString().indexOf(/STATS/) >= 0){
-		  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
-		  	logStats('memory', statsObj, function(e, result){
-			  	if (e) return console.log('error setting stats: ' + e );
-			});
-		  }
-
-		});
-
-	});
-
-});
 
 var endProcess = function(){
 	try{
@@ -154,14 +133,158 @@ var endProcess = function(){
 	 	//do nothing
 	 	process.exit(0);
 	 }
-
-
 };
 
-process.on('SIGINT', function() {
-	endProcess();
-});
+var createStatsUser = function(service, cb){
 
-process.on('SIGTERM', function() {
-	endProcess();
+	var statsGroup = {
+      name:'STATS',
+      permissions:{
+      	 '/STATS/*':{actions:['get','on']}
+      }
+    }
+
+    var statsUser = {
+      username:STATS_USERNAME,
+      password:STATS_PASSWORD,
+    }
+
+	service.services.security.upsertGroup(statsGroup, {overwrite:true}, function(e, result){
+
+        if (e) return cb(e);
+        addedStatsGroup = result;
+
+        service.services.security.upsertUser(statsUser, {overwrite:true}, function(e, result){
+
+          if (e) return cb(e);
+          addedStatsUser = result;
+
+          service.services.security.linkGroup(addedStatsGroup, addedStatsUser, cb);
+
+
+      });
+    });
+}
+
+service.create(config,
+	function (e, instance) {
+
+		if (e)
+		    return console.log("ERROR:" + e.toString());
+
+		statsService  = instance;
+
+		createStatsUser(statsService, function(e){
+
+			happn_client.create(clientConfig, function(e, clientInstance){
+
+				if (e){
+		  			console.log('error connecting to local happn instance: ', e);
+		  			return endProcess();
+		  		}
+
+				statsClient = clientInstance;
+
+				// spawn remote happn
+				remote = spawn('node', ['--expose-gc', __dirname + '/happn_instance', test_id, REMOTE_PORT, ADMIN_PASSWORD]);
+
+				console.log('spawned:::');
+
+				process.on('SIGINT', function() {
+						endProcess();
+				});
+
+				process.on('SIGTERM', function() {
+						endProcess();
+				});
+
+				remote.stdout.on('data', function(data) {
+
+				  console.log('incoming from remote general:::', data.toString());
+
+				  if (data.toString().match(/READY/)){
+				  	happn_client.create(remoteClientConfig, function(e, instance){
+
+				  		if (e){
+				  			console.log('error connecting to remote happn instance: ', e);
+				  			return endProcess();
+				  		}
+
+				  		remoteClientInstance = instance;
+				  		var RandomActivityGenerator = require("happn-random-activity-generator");
+				  		random = new RandomActivityGenerator(remoteClientInstance);
+
+				  		random.generateActivityStart("test", function(e){
+
+				  			if (e){
+					  			console.log('error starting random activity: ', e);
+					  			return endProcess();
+					  		}
+
+					  		setInterval(function(){
+					  			var aggregatedLog = random.__operationLogAggregated["test"];
+					  			console.log('RANDOM ACTIVITIES - AGGREGATED:::', aggregatedLog);
+
+								logStats('activity', aggregatedLog, function(e, result){
+					  				if (e) return console.log('error setting stats: ' );
+					  			});
+
+					  		}, ACTIVITY_LOG_INTERVAL);
+
+					  		console.log('READY - TEST FRAMEWORK UP:::');
+				  		}, "daemon")
+
+				  	})
+
+				  	fs.writeFileSync(__dirname + '/app/js/settings.json', JSON.stringify({"port":PORT, "ip":STATS_IP, "username":STATS_USERNAME, "password":STATS_PASSWORD}));
+
+				  	statsService.connect.use(serveStatic(__dirname + '/app'));
+		          	console.log('service up and listening on port ' + PORT);
+				  }
+
+				  if (data.toString().indexOf("DUMP") >= 0){
+
+				  	console.log('incoming from remote:::', data);
+
+				  	var dumpFile = data.toString().split(':::')[1];
+				  	logStats('dump', dumpFile, function(e, result){
+					  	if (e) return console.log('error setting stats: ' + e );
+					});
+				  }
+
+				  if (data.toString().indexOf("STATS") >= 0){
+
+				  	console.log('incoming from remote:::', data);
+
+				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
+				  	logStats('memory', statsObj, function(e, result){
+					  	if (e) return console.log('error setting stats: ' + e );
+					});
+				  }
+
+				  if (data.toString().indexOf("GC") >= 0){
+
+				  	console.log('incoming from remote:::', data);
+
+				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
+				  	logStats('gc', statsObj, function(e, result){
+					  	if (e) return console.log('error setting stats: ' + e );
+					});
+				  }
+
+				  if (data.toString().indexOf("LOG") >= 0){
+
+				  	console.log('incoming from remote:::', data.toString().split(':::')[1]);
+
+				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
+				  	logStats('log', statsObj, function(e, result){
+					  	if (e) return console.log('error setting log: ' + e );
+					});
+				  }
+
+				});
+
+			});
+
+		});
 });

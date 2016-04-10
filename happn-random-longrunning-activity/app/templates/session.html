@@ -1,0 +1,1 @@
+{{data.session.user}} <span ng-if="data.session.status=='connected'" class="alert-success">connected</span><span ng-if="data.session.status=='reconnecting'" class="alert-warning">connecting...</span><span class="alert-danger" ng-if="data.session.status=='connection terminated'">connection closed</span>

@@ -1,0 +1,19 @@
+<div ng-controller="blueprint_edit" class="panel panel-default" style="width:100%;height:100%;">
+  <div class="panel-heading">Edit blueprint {{blueprint.name}}</div>
+  <div class="panel-body">
+     <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="blueprintName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="blueprintName" placeholder="Name" ng-model="blueprint.name"></input>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="blueprintDescription" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+          <textarea id="blueprintDescription" class="form-control" rows="3" placeholder="Description" ng-model="blueprint.description"></textarea>
+        </div>
+      </div>
+     </form>
+  </div>
+</div>

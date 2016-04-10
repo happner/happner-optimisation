@@ -13,11 +13,15 @@
   "dependencies": {
     "async": "^1.5.2",
     "benchmarket": "0.0.4",
+    "bower": "^1.7.7",
     "fs-extra": "^0.26.5",
     "happn": "^2.5.8",
     "happn-random-activity-generator": "^0.2.0",
     "happner": "^1.6.3",
-    "heapdump": "^0.3.7"
+    "heapdump": "^0.3.7",
+    "serve-static": "^1.10.2",
+    "shortid": "^2.2.6",
+    "sillyname": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",

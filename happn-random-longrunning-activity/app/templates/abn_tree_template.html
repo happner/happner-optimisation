@@ -1,0 +1,8 @@
+<ul class="nav nav-list nav-pills nav-stacked abn-tree">
+  <li ng-repeat="row in tree_rows | filter:{visible:true} track by row.branch.path" ng-animate="'abn-tree-animate'" ng-class="'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')" class="abn-tree-row">
+    <a ui-draggable="true" drag="row" ng-click="user_clicks_branch(row.branch)" style="border-top-right-radius:0px;border-bottom-right-radius:0px;">
+      <i ng-class="row.tree_icon" ng-click="row.branch.expanded = !row.branch.expanded;user_expands_or_contracts_branch(row.branch)" class="indented tree-icon"> </i>
+      <span class="indented tree-label">{{ row.label }}</span>
+    </a>
+  </li>
+</ul>

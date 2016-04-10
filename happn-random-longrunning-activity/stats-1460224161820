@@ -1,5 +1,0 @@
-{"_id":"/_SYSTEM/_NETWORK/_SETTINGS/NAME","data":{"value":"freckleedge_VJGay4fkW"},"created":1460224161942,"modified":1460224161942}
-{"_id":"/_SYSTEM/_SECURITY/_SETTINGS/KEYPAIR","data":{"value":"{\"privateKey\":\"Hs1vzFUb+C0v+6Y83oncad9+yBjphhZISuRiWQ0W5Ek=\",\"publicKey\":\"AgP60UKEstgwdac1T+1yJHDX5kqX62hsLaAsKKtY8uaA\"}"},"created":1460224161988,"modified":1460224161988}
-{"_id":"/_SYSTEM/_SECURITY/_GROUP/_ADMIN","data":{"custom_data":{"description":"the default administration group for happn"},"name":"_ADMIN","permissions":{"*":{"actions":["*"]}}},"created":1460224161991,"modified":1460224161991}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN","data":{"custom_data":{},"username":"_ADMIN","password":"pbkdf2$10000$9ed281f3b510ef1c09c7c6935fee451814e8cb31da578a5516ef75117746c38945aef3870b4d14ac661ea9db4fdd1a2c7cb75f42146f5bb48596135cba25ada2$4292b97385613dac0331c68be559115afa726d1f85c2c253a569901a6a4892054df7706e28c6b54bf8c71f5b8e6c08ac220262ab8260f61626ab8901b04736fc"},"created":1460224162028,"modified":1460224162028}
-{"_id":"/_SYSTEM/_SECURITY/_USER/_ADMIN/_USER_GROUP/_ADMIN","data":{},"created":1460224162030,"modified":1460224162030}
