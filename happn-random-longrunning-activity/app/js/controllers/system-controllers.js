@@ -4,6 +4,17 @@ ideControllers.controller('DashboardController', ['$scope', '$uibModal', '$log',
 
 	$rootScope.data = {"message":{"display":"none"}, "events":[]};
 
+	$scope.chart_labels = ["January", "February", "March", "April", "May", "June", "July"];
+	$scope.chart_series = ['Series A', 'Series B'];
+	$scope.chart_data = [
+	    [65, 59, 80, 81, 56, 55, 40],
+	    [28, 48, 40, 19, 86, 27, 90]
+	];
+
+	$rootScope.chartClick = function (points, evt) {
+	    console.log(points, evt);
+	};
+
 	$rootScope.openModal = function (templatePath, controller, handler, args) {
 
 		    var modalInstance = $uibModal.open({
@@ -89,19 +100,24 @@ ideControllers.controller('DashboardController', ['$scope', '$uibModal', '$log',
 
 		console.log('STATS client connected:::');
 
-		dataService.instance.client.on('/STATS/*', function(data){
+		dataService.instance.client.on('/STATS/*', function(data, meta){
 
 			incomingCount++;
 			$rootScope.notify('incoming data event #' + incomingCount, 'success');
 
-			var stringified = JSON.stringify(data);
-			$rootScope.data.events.unshift(stringified);
+			var item = {
+				data:data,
+				meta:meta
+			}
+
+			$rootScope.data.incomingEvent = item;
+			$rootScope.data.events.unshift(item);
 
 			if ($rootScope.data.events.length > 40)
-				$rootScope.data.events.pop();
+				$rootScope.data.outgoingEvent = $rootScope.data.events.pop();
 
 			console.log('events length::',$rootScope.data.events.length);
-			console.log('latest event::',data);
+			console.log('latest event::',data, meta);
 
 			$rootScope.$apply();
 

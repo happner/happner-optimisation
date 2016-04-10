@@ -6,6 +6,9 @@
   	<link rel="stylesheet" href="lib/components/bootstrap/dist/css/bootstrap-theme.min.css">
 
  	<link rel="stylesheet" href="css/happn-job.css">
+
+ 	<script src="lib/components/Chart.js/Chart.js"></script>
+
     <script src="lib/components/angular/angular.js"></script>
     <script src="lib/components/angular-uuid4/angular-uuid4.min.js"></script>
 
@@ -14,6 +17,8 @@
 
     <script src="lib/components/angular-bootstrap/ui-bootstrap.min.js"></script>
 	<script src="lib/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<script src="lib/components/angular-chart.js/dist/angular-chart.js"></script>
 
 	<script type="text/javascript" src="/browser_client"></script>
 	<script src="js/services/happn-angular.js"></script>
@@ -31,9 +36,18 @@
 
   </head>
   <body style="margin:5px">
-	<div ng-controller="DashboardController" class="row">
+	<div ng-controller="DashboardController" style="padding:10px">
+		<div style="width:800px;padding:10px">
+			<canvas id="line" class="chart chart-line" chart-data="chart_data"
+			  chart-labels="chart_labels" chart-legend="true" chart-series="chart_series"
+			  chart-click="chartClick">
+			</canvas>
+		</div>
 		<div ng-include src="'../templates/notify.html'"></div>
-		<div ng-repeat="event in data.events" style="height:40px">{{JSON.stringify(event)}}</div>
+		<label>latest:</label>
+		<div style="font-size:12px;padding:10px">{{data.incomingEvent}}</div>
+		<label>previous:</label>
+		<div ng-repeat="event in data.events" style="font-size:8px;padding:10px">{{event.meta.path}}</div>
 	</div>
 
 	<div id="modalContent" class="modal fade">

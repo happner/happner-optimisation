@@ -12,6 +12,11 @@ var clientInstance;
 
 var PORT = 55000;
 
+var RANDOM_ACTIVITY_INTERVAL = 1000;//every second
+
+if (process.env.RANDOM_ACTIVITY_INTERVAL)
+	RANDOM_ACTIVITY_INTERVAL = process.env.RANDOM_ACTIVITY_INTERVAL;
+
 if (process.env.PORT)
 	PORT = process.env.PORT;
 
@@ -44,7 +49,7 @@ var remoteClientConfig = {
 	}
 }
 
-var ACTIVITY_LOG_INTERVAL = 1000 * 60 * 2;
+var ACTIVITY_LOG_INTERVAL = 1000 * 60 * 1;//every minute
 var statsService;
 var statsClient;
 
@@ -212,7 +217,7 @@ service.create(config,
 
 				  		remoteClientInstance = instance;
 				  		var RandomActivityGenerator = require("happn-random-activity-generator");
-				  		random = new RandomActivityGenerator(remoteClientInstance);
+				  		random = new RandomActivityGenerator(remoteClientInstance, {interval:RANDOM_ACTIVITY_INTERVAL});
 
 				  		random.generateActivityStart("test", function(e){
 

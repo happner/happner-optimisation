@@ -12,7 +12,7 @@ var happnInstance; //this will be your server instance
 
 var DUMP_INTERVAL = 1000 * 60 * 20;//every 20 minutes
 var STATS_INTERVAL = 1000 * 60 * 5;//every 5 minutes
-var GC_INTERVAL = 1000 * 60 * 15;//every 15 minutes
+var GC_INTERVAL= 1000 * 60 * 15;//every 15 minutes
 
 var heapdump = require('heapdump');
 var fs = require('fs');
