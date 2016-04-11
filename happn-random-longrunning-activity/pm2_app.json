@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "script"      : "index.js",
+    "watch"       : true,
+    "env": {
+      "NODE_ENV": "development",
+      "STATS_IP": "178.62.103.124"
+    }
+  }]
+}

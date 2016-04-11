@@ -8,5 +8,11 @@ happn performance monitoring
 -----------------------------
 *we are going to run a series of tests that monitor what parts of happn use the most CPU cycles*
 
-dtrace -n 'profile-97/pid == 12345 && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
+have test app installed on 178.62.103.124
+in /root/projects/happner-optimisation
+
+running the test code
+
+dtrace -n 'profile-97/pid == [node pid] && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
+
 
