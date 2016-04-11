@@ -11,8 +11,10 @@ happn performance monitoring
 have test app installed on 178.62.103.124
 in /root/projects/happner-optimisation
 
+http://www.brendangregg.com/blog/2014-09-17/node-flame-graphs-on-linux.html
+
 running the test code
 
-dtrace -n 'profile-97/pid == 61005 && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
+sudo dtrace -n 'profile-97/pid == 61005 && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
 
 
