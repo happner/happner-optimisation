@@ -193,7 +193,7 @@ service.create(config,
 				// spawn remote happn
 				remote = spawn('node', ['--expose-gc', __dirname + '/happn_instance', test_id, REMOTE_PORT, ADMIN_PASSWORD]);
 
-				console.log('spawned:::');
+				console.log('spawned:::', remote.pid);
 
 				process.on('SIGINT', function() {
 						endProcess();

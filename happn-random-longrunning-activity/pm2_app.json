@@ -1,5 +1,6 @@
 {
   "apps" : [{
+    "name"        : "happn random long running",
     "script"      : "index.js",
     "watch"       : true,
     "env": {

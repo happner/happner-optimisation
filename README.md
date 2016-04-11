@@ -13,6 +13,6 @@ in /root/projects/happner-optimisation
 
 running the test code
 
-dtrace -n 'profile-97/pid == [node pid] && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
+dtrace -n 'profile-97/pid == 61005 && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
 
 
