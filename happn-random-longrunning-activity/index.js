@@ -205,8 +205,6 @@ service.create(config,
 
 				remote.stdout.on('data', function(data) {
 
-				  console.log('incoming from remote general:::', data.toString());
-
 				  if (data.toString().match(/READY/)){
 				  	happn_client.create(remoteClientConfig, function(e, instance){
 
@@ -228,7 +226,6 @@ service.create(config,
 
 					  		setInterval(function(){
 					  			var aggregatedLog = random.__operationLogAggregated["test"];
-					  			console.log('RANDOM ACTIVITIES - AGGREGATED:::', aggregatedLog);
 
 								logStats('activity', aggregatedLog, function(e, result){
 					  				if (e) return console.log('error setting stats: ' );
@@ -248,41 +245,34 @@ service.create(config,
 				  }
 
 				  if (data.toString().indexOf("DUMP") >= 0){
-
-				  	console.log('incoming from remote:::', data);
-
 				  	var dumpFile = data.toString().split(':::')[1];
-				  	logStats('dump', dumpFile, function(e, result){
+				  	logStats('usage/dump', dumpFile, function(e, result){
 					  	if (e) return console.log('error setting stats: ' + e );
 					});
 				  }
 
 				  if (data.toString().indexOf("STATS") >= 0){
-
-				  	console.log('incoming from remote:::', data);
-
 				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
-				  	logStats('memory', statsObj, function(e, result){
+
+				  	console.log('mem-stats:::', statsObj);
+
+				  	logStats('usage/memory-disk', statsObj, function(e, result){
 					  	if (e) return console.log('error setting stats: ' + e );
 					});
 				  }
 
 				  if (data.toString().indexOf("GC") >= 0){
 
-				  	console.log('incoming from remote:::', data);
-
 				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
-				  	logStats('gc', statsObj, function(e, result){
+				  	logStats('usage/gc', statsObj, function(e, result){
 					  	if (e) return console.log('error setting stats: ' + e );
 					});
 				  }
 
 				  if (data.toString().indexOf("LOG") >= 0){
 
-				  	console.log('incoming from remote:::', data.toString().split(':::')[1]);
-
 				  	var statsObj = JSON.parse(data.toString().split(':::')[1]);
-				  	logStats('log', statsObj, function(e, result){
+				  	logStats('usage/log', statsObj, function(e, result){
 					  	if (e) return console.log('error setting log: ' + e );
 					});
 				  }

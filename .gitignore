@@ -12,6 +12,7 @@ lib-cov
 *test/test-tmp*
 *.db
 **.heapsnapshot
+**.db
 
 templates/context/*
 

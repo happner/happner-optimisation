@@ -7,9 +7,12 @@
 
  	<link rel="stylesheet" href="css/happn-job.css">
 
+ 	<script src="lib/components/moment/moment.js"></script>
  	<script src="lib/components/Chart.js/Chart.js"></script>
 
     <script src="lib/components/angular/angular.js"></script>
+    <script src="lib/components/angular-moment/angular-moment.js"></script>
+
     <script src="lib/components/angular-uuid4/angular-uuid4.min.js"></script>
 
     <script src="lib/components/angular-animate/angular-animate.min.js"></script>
@@ -37,17 +40,50 @@
   </head>
   <body style="margin:5px">
 	<div ng-controller="DashboardController" style="padding:10px">
-		<div style="width:800px;padding:10px">
-			<canvas id="line" class="chart chart-line" chart-data="chart_data"
-			  chart-labels="chart_labels" chart-legend="true" chart-series="chart_series"
-			  chart-click="chartClick">
-			</canvas>
+		<div class="row">
+			<input type="datetime-local" ng-model="from"></input>
+			<input type="datetime-local" ng-model="to"></input>
+			<button ng-click="refreshCharts()">refresh charts</button>
+		</div>
+		<div style="font-size:14px; font-weight:bold">activity chart</div>
+		<div class="row" style="padding:5px">
+			<div id="chartContainerActivity" class="col-md-6" style="padding:10px;border:1px solid #CCC;margin:5px">
+				<canvas id="line" class="chart chart-line" chart-data="chart_data"
+				  chart-labels="chart_labels" chart-legend="true" chart-series="chart_series"
+				  chart-click="chartClick">
+				</canvas>
+			</div>
+			<div class="col-md-3" style="height:415px;overflow:auto;border:1px solid #CCC;margin:5px">
+				<div id="previousListing" ng-repeat="event in chart_dataset" style="font-size:12px;padding:10px;margin:5px"><a style="cursor:pointer" ng-click="clickedActivityEvent(event)">{{event.created}} {{event.meta.path}}</a></div>
+			</div>
+			<div class="col-md-2" style="border:1px solid #CCC;word-wrap: break-word">
+				{{selectedActivityEvent}}
+			</div>
+		</div>
+		<div style="font-size:14px; font-weight:bold">resource usage chart</div>
+		<div class="row" style="padding:5px">
+			<div id="chartContainerUsage" class="col-md-6" style="padding:10px;border:1px solid #CCC;margin:5px">
+				<canvas id="line" class="chart chart-line" chart-data="usage_chart_data"
+				  chart-labels="usage_chart_labels" chart-legend="true" chart-series="usage_chart_series"
+				  chart-click="usageChartClick">
+				</canvas>
+			</div>
+			<div class="col-md-3" style="height:415px;overflow:auto;border:1px solid #CCC;margin:5px">
+				<div id="previousListing" ng-repeat="event in usage_chart_dataset" style="font-size:12px;padding:10px"><a style="cursor:pointer" ng-click="clickedUsageEvent(event)">{{event.created}} {{event.meta.path}}</a></div>
+			</div>
+			<div class="col-md-2" style="border:1px solid #CCC;word-wrap: break-word;margin:5px">
+				{{selectedUsageEvent}}
+			</div>
+		</div>
+		<div class="row" style="padding:5px">
+			<div class="col-md-3" style="height:300px;overflow:auto;border:1px solid #CCC;margin:5px">
+				<div id="previousListing" ng-repeat="event in data.events" style="font-size:12px;padding:10px"><a style="cursor:pointer" ng-click="clickedEvent(event)">{{event.created}} {{event.meta.path}}</a></div>
+			</div>
+			<div class="col-md-8" style="border:1px solid #CCC;word-wrap: break-word;margin:5px">
+				{{selectedEvent}}
+			</div>
 		</div>
 		<div ng-include src="'../templates/notify.html'"></div>
-		<label>latest:</label>
-		<div style="font-size:12px;padding:10px">{{data.incomingEvent}}</div>
-		<label>previous:</label>
-		<div ng-repeat="event in data.events" style="font-size:8px;padding:10px">{{event.meta.path}}</div>
 	</div>
 
 	<div id="modalContent" class="modal fade">

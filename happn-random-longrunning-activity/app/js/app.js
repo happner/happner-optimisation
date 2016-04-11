@@ -12,7 +12,8 @@ var ideApp = angular.module('ideApp', [
   'ngDragDrop',
   'happn',
   'ngLoadScript',
-  'chart.js'
+  'chart.js',
+  'angularMoment'
 ]);
 
 ideApp.directive('dynamic', function ($compile) {
