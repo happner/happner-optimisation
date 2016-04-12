@@ -10,9 +10,9 @@ var test_file = __dirname + '/data/test-' + test_id + '.db';
 var happn = require('happn')
 var happnInstance; //this will be your server instance
 
-var DUMP_INTERVAL = 1000 * 60 * 20;//every 15 minutes
+var DUMP_INTERVAL = 1000 * 60 * 7;//every 7 minutes
 var STATS_INTERVAL = 1000 * 60 * 5;//every 5 minutes
-var GC_INTERVAL = 1000 * 60 * 15;//every 15 minutes
+var GC_INTERVAL = 1000 * 60 * 10;//every 10 minutes
 
 var ADMIN_PASSWORD = 'happn';
 
@@ -84,38 +84,49 @@ postLog("starting test with id: " + test_id + ", remote port:" + PORT);
 happn.service.create(config,
 function (e, happn) {
 	if (e)
-	    return console.log("ERROR");
+	    return console.log("ERROR:::" + e.toString());
 
   	happnInstance = happn; //here it is, your server instance
 
   	setInterval(function(){
-  		heapdump.writeSnapshot();
+      try{
+        heapdump.writeSnapshot();
 
-  		var latestSnapShot = getLatestHeapSnapshot();
-  		console.log("DUMP:::" + JSON.stringify({timestamp:Date.now(), file:latestSnapShot}));
+        var latestSnapShot = getLatestHeapSnapshot();
+        console.log("DUMP:::" + JSON.stringify({timestamp:Date.now(), file:latestSnapShot}));
+      }catch(e){
+        console.log("ERROR:::" + e.toString());
+      }
 
   	}, DUMP_INTERVAL);
 
   	setInterval(function(){
-  		var fileSize = getFileSize();
-  		var memUsage = util.inspect(process.memoryUsage());
+      try{
+    		var fileSize = getFileSize();
+    		var memUsage = util.inspect(process.memoryUsage());
 
-  		var message = {
-  			timestamp:Date.now(),
-  			mem:memUsage,
-  			file:{
-  				size:fileSize,
-  				path:test_file
-  			}
-  		}
+    		var message = {
+    			timestamp:Date.now(),
+    			mem:memUsage,
+    			file:{
+    				size:fileSize,
+    				path:test_file
+    			}
+    		}
 
-  		console.log("STATS:::" + JSON.stringify(message));
-
+    		console.log("STATS:::" + JSON.stringify(message));
+      }catch(e){
+        console.log("ERROR:::" + e.toString());
+      }
   	}, STATS_INTERVAL);
 
   	setInterval(function(){
-  		global.gc();
-  		console.log("GC:::" + JSON.stringify({timestamp:Date.now()}));
+      try{
+    		global.gc();
+    		console.log("GC:::" + JSON.stringify({timestamp:Date.now()}));
+      }catch(e){
+        console.log("ERROR:::" + e.toString());
+      }
   	}, GC_INTERVAL);
 
  	console.log("READY");

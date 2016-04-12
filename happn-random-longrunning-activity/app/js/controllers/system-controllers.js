@@ -302,6 +302,8 @@ ideControllers.controller('DashboardController', ['$scope', '$uibModal', '$log',
 				return console.log(e);
 			}
 
+			console.log('usage results:::', results);
+
 			var statsUsageData = [];
 
 			results.map(function(result){

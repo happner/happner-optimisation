@@ -13,6 +13,15 @@ in /root/projects/happner-optimisation
 
 http://www.brendangregg.com/blog/2014-09-17/node-flame-graphs-on-linux.html
 
+running process 6155
+//recording for 10 minutes of activity
+perf record -F 99 -p 6155 sleep 600
+//started Tues APR 12 15:08
+//ended Tues APR 12 25:08
+//returned the following:
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.025 MB perf.data (~1101 samples) ]
+
 running the test code
 
 sudo dtrace -n 'profile-97/pid == 61005 && arg1/{@[jstack(150, 8000)] = count(); } tick-60s { exit(0); }' > stacks.out
