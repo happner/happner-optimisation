@@ -70,6 +70,13 @@ var config = {
         config:{
            filename:testFile
         }
+      },
+      security:{
+      	config:{
+      		adminUser:{
+      			password:ADMIN_PASSWORD
+      		}
+      	}
       }
     },
     middleware:{
