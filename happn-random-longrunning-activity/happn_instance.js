@@ -10,9 +10,11 @@ var test_file = __dirname + '/data/test-' + test_id + '.db';
 var happn = require('happn')
 var happnInstance; //this will be your server instance
 
-var DUMP_INTERVAL = 1000 * 60 * 7;//every 7 minutes
-var STATS_INTERVAL = 1000 * 60 * 5;//every 5 minutes
-var GC_INTERVAL = 1000 * 60 * 10;//every 10 minutes
+var usageConfig = require('./test_config').usage;
+
+var DUMP_INTERVAL = usageConfig.DUMP_INTERVAL;
+var STATS_INTERVAL = usageConfig.STATS_INTERVAL;
+var GC_INTERVAL = usageConfig.GC_INTERVAL;
 
 var ADMIN_PASSWORD = 'happn';
 

@@ -6,16 +6,21 @@ var spawn = require('child_process').spawn
   , happn_client = happn.client
   , serveStatic = require('serve-static')
   , fs = require('fs')
+  , randomConfig = require('./test_config').random
   ;
 
 var clientInstance;
-
 var PORT = 55000;
 
+/*
 var RANDOM_ACTIVITY_INTERVAL = 1000;//every second
 
 if (process.env.RANDOM_ACTIVITY_INTERVAL)
 	RANDOM_ACTIVITY_INTERVAL = process.env.RANDOM_ACTIVITY_INTERVAL;
+
+if (randomConfig.RANDOM_ACTIVITY_INTERVAL)
+	RANDOM_ACTIVITY_INTERVAL = andomConfig.RANDOM_ACTIVITY_INTERVAL;
+*/
 
 if (process.env.PORT)
 	PORT = process.env.PORT;
@@ -223,7 +228,9 @@ service.create(config,
 
 				  		remoteClientInstance = instance;
 				  		var RandomActivityGenerator = require("happn-random-activity-generator");
-				  		random = new RandomActivityGenerator(remoteClientInstance, {interval:RANDOM_ACTIVITY_INTERVAL});
+				  		random = new RandomActivityGenerator(remoteClientInstance, randomConfig);
+
+				  		console.log('STARTING RANDOM ACTIVITY:::', randomConfig);
 
 				  		random.generateActivityStart("test", function(e){
 

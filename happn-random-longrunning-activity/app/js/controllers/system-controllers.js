@@ -209,6 +209,12 @@ ideControllers.controller('DashboardController', ['$scope', '$uibModal', '$log',
 				return a.meta["created"] - b.meta["created"];
 			});
 
+			var lastGC = 0;
+			var lastFileSize = 0;
+			var lastHeapTotal = 0;
+			var lastHeapUsed = 0;
+			var lastRSS = 0;
+
 			dataSet.map(function(item){
 
 				chart.chart_labels.push(new Date(item.meta.created));
@@ -231,15 +237,21 @@ ideControllers.controller('DashboardController', ['$scope', '$uibModal', '$log',
 					chart.chart_data[2].push(mem.heapTotal / 1000);//heap total in KB
 					chart.chart_data[3].push(mem.heapUsed / 1000);//heap total in KB
 					chart.chart_data[4].push(mem.rss / 1000);//heap total in KB
+
+					lastFileSize = item.data.file.size;
+					lastHeapTotal = mem.heapTotal / 1000;
+					lastHeapUsed = mem.heapUsed / 1000;
+					lastRSS = mem.rss / 1000;
+
 				}else{
-					chart.chart_data[1].push(0);//heap total in KB
-					chart.chart_data[2].push(0);//heap total in KB
-					chart.chart_data[3].push(0);//heap total in KB
-					chart.chart_data[4].push(0);//heap total in KB
+					chart.chart_data[1].push(lastFileSize);//heap total in KB
+					chart.chart_data[2].push(lastHeapTotal);//heap total in KB
+					chart.chart_data[3].push(lastHeapUsed);//heap total in KB
+					chart.chart_data[4].push(lastRSS);//heap total in KB
 				}
 
 				if (item.meta.path.indexOf('/STATS/USAGE/DUMP') >= 0){
-					chart.chart_data[5].push(1000000);
+					chart.chart_data[5].push(300000);
 				}else
 					chart.chart_data[5].push(0);
 
